@@ -54,4 +54,5 @@ for el in indElement:
     
     
     result.xs(el)['minkowski']=measures.minkowski_distance(s,g,3)
- 
+
+print (result)
