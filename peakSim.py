@@ -8,33 +8,49 @@ Created on Fri Aug 31 04:34:53 2018
 import pandas as pd
 import numpy as np
 import SimilartyLib as sim
-
-from sklearn.decomposition import PCA
-from sklearn import preprocessing
+#
+#from sklearn.decomposition import PCA
+#from sklearn import preprocessing
 
 
 import createGraph as cG
 import graph_tool.all as gt
 
-indElement= ["All","Bb","Caa","Cc","Cll","Ff","Kk","Lit","Naa","Nn","Oo","Ti"]
+indElement= ["al2","cu2","fe2","Mg2","teb","Ti2"]#,"Kk","Lit","Naa","Nn","Oo","Ti"]
 coll=["cos","euclidean","manhattan","minkowski","jaccard","graph"]
 result=pd.DataFrame(index=indElement,columns=coll)
 
 measures = sim.Similarity()
 
-guess=pd.read_csv("Numune/Al.csv",sep=",",index_col=0,usecols=["Wavelength","Sum"])
+guess=pd.read_excel("olcumler/al2.xlsx",header=None, names=["Wavelength","Sum"],skiprows=4)#sep=",",index_col=0,usecols=["Wavelength","Sum"])
 
+start=100
 
+guess=guess.query('Sum > '+str(start))
+guess=guess.sort_values('Sum', ascending=False)
+#guess=guess.iloc[0:300,:]
+g=guess['Wavelength'].values
+#ssss= source.query('index < 222 | index > 444')
 
 for el in indElement:
-    source=pd.read_csv("data/"+el+".csv",sep=",",index_col=0,usecols=["Wavelength","Sum"])
-    source.index.min()
-    start=max(source.index.min(),guess.index.min())
-    end=min(source.index.max(),guess.index.max())
-    source=source[start:end]
-    guess=guess[start:end]
-    s=source['Sum'].values
-    g=guess['Sum'].values
+    source=pd.read_excel("datalar/"+el+".xlsx",header=None, names=["Wavelength","Sum"],skiprows=4)#,sep=",",index_col=0,usecols=["Wavelength","Sum"])
+#    source.index.min()
+#    start=max(float(source.index.min()),guess.index.min())
+#    end=min(float(source.index.max()),guess.index.max())
+    
+#    source=source.query('index > '+str(start)+' and index < '+str(end))
+#    guess=guess.query('index > '+str(start)+' and index < '+str(end))
+#    source= source[start:end]    
+#    guess=guess[start:end]
+    
+    source=source.query('Sum > '+str(start))
+    source=source.sort_values('Sum', ascending=False)
+#    source=source.iloc[0:300,:]
+   
+    s=source['Wavelength'].values
+  
+    if len(s) ==0:
+        continue    
     
     grapg_g = cG.create(guess)    
     grapg_s = cG.create(source)            

@@ -11,15 +11,15 @@ import graph_tool as gt
 def create(vector):     
     
               
-       vector=vector.sort_values('Sum', ascending=False)
-#       vector=vector.iloc[0:600,:]
+#       vector=vector.sort_values('PCA', ascending=False)
+       vector=vector.iloc[0:300,:]
 #       vector=vector.reset_index()
        g=dg.DeepGraph(vector)
        
        
        
-       def x_dist(Wavelength_s, Wavelength_t):
-           dx = Wavelength_t - Wavelength_s
+       def x_dist(PCA_s, PCA_t):
+           dx = PCA_t - PCA_s
            return dx
 #       def x_dist(Sum_s, Sum_t):
 #           dx = Sum_t - Sum_s
@@ -40,24 +40,24 @@ def create(vector):
 #       print(g)
 #       print(g.e)
        
-       g.v.sort_values('Wavelength', inplace=True)
+#       g.v.sort_values('Wavelength', inplace=True)
 #       print(g.v)
-       g.create_edges_ft(ft_feature=('Wavelength', 100))
+#       g.create_edges_ft(ft_feature=('PCA', 100))
 #       print(g)
        
-       def y_dist(Sum_s, Sum_t):
-           dy = Sum_t - Sum_s
-           return dy
-       
-       def y_dist_selector(dy, sources, targets):
-           dya = np.abs(dy)
-           sources = sources[dya <= 100]
-           targets = targets[dya <= 100]
-           return sources, targets
-       
-       g.create_edges_ft(ft_feature=('Wavelength',100),
-                         connectors=y_dist,
-                         selectors=y_dist_selector)
+#       def y_dist(Sum_s, Sum_t):
+#           dy = Sum_t - Sum_s
+#           return dy
+#       
+#       def y_dist_selector(dy, sources, targets):
+#           dya = np.abs(dy)
+#           sources = sources[dya <= 100]
+#           targets = targets[dya <= 100]
+#           return sources, targets
+#       
+#       g.create_edges_ft(ft_feature=('Wavelength',100),
+#                         connectors=y_dist,
+#                         selectors=y_dist_selector)
 
        gtd=g.return_gt_graph()
        return gtd

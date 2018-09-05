@@ -41,10 +41,12 @@ class Similarity():
         return round(numerator/float(denominator),3)
 
     def square_rooted(self,x):
+        
         return round(sqrt(sum([a*a for a in x])),3)
 
     def jaccard_similarity(self,x,y):
         intersection_cardinality = len(set.intersection(*[set(x), set(y)]))
         union_cardinality = len(set.union(*[set(x), set(y)]))
+        print(intersection_cardinality,union_cardinality)
         return intersection_cardinality/float(union_cardinality)# -*- coding: utf-8 -*-
 
