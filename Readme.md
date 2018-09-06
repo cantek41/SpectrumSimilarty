@@ -1,10 +1,15 @@
 ## Spectrum Similarty , Macthing ,  identity , Searching 
-(Spectrum BenzerliÄŸi)
+(Spectrum Benzerliði)
 
-run peakSim.py
+run peakSimPCA.py
+run SimwithPrediction.py
 
 
+dataSet : ["al","cu","fe","Mg","teb","Ti"]
 
-similarty results:
-    cos-jaccard-graph = [0,1]
-    euclidean,manhattan,minkowski= min value
+#SimwithPrediction
+    KNN,SVM,LR
+    
+#peakSimPCA
+    cos,euclidean,minkowski,graph
+    
