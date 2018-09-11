@@ -12,11 +12,12 @@ def create(vector):
     
               
 #       vector=vector.sort_values('PCA', ascending=False)
-       vector=vector.iloc[0:300,:]
+       vector=vector.iloc[0:500,:]
 #       vector=vector.reset_index()
        g=dg.DeepGraph(vector)
        
-       
+#       plt.plot(vector,"b")
+#       plt.show()
        
        def x_dist(PCA_s, PCA_t):
            dx = PCA_t - PCA_s

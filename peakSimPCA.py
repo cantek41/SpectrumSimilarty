@@ -11,18 +11,35 @@ import SimilartyLib as sim
 from sklearn.decomposition import PCA
 import createGraphPCAdata as cG
 import graph_tool.all as gt
+import matplotlib.pyplot as plt
 
-indElement= ["al2","cu2","fe2","Mg2","teb","Ti2"]#,"Kk","Lit","Naa","Nn","Oo","Ti"]
+indElement= ["al2","cu2","fe2","Mg2","Ti2"]#,"Kk","Lit","Naa","Nn","Oo","Ti"]
 coll=["cos","euclidean","minkowski","graph"]
 result=pd.DataFrame(index=indElement,columns=coll)
 
 measures = sim.Similarity()
 
-guess=pd.read_excel("olcumler/Fe2.xlsx",header=None, names=["Wavelength","Sum"],skiprows=4)#sep=",",index_col=0,usecols=["Wavelength","Sum"])
+guess=pd.read_excel("olcumler/Numune/als2-1.xlsx",header=None, names=["Wavelength","Sum"],skiprows=4)#sep=",",index_col=0,usecols=["Wavelength","Sum"])
 
 pca = PCA(n_components=1)
-g=pca.fit_transform(guess)
+pca.fit(guess)
+g=pca.transform(guess)
 g=g[:,0]
+#
+#print("original shape:   ", guess.shape)
+#print("transformed shape:", g.shape)
+
+#plt.plot(g, 'ro')
+#plt.show()
+
+#X_new = pca.inverse_transform(g)
+#plt.plot(guess,"r", alpha=0.5)
+#plt.plot(X_new,"b", alpha=0.8)
+#plt.axis('equal');
+
+#plt.plot(pca.explained_variance_, linewidth=2)
+#plt.show()
+
 
 gPCA=pd.DataFrame(data=g,columns=['PCA'])
 
